@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Cinzel_Decorative, Libertinus_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
@@ -13,10 +13,19 @@ export const metadata: Metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
+const cinzel = Cinzel_Decorative({
   subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
+
+const libertinus = Libertinus_Serif({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-libertinus",
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -25,8 +34,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${cinzel.variable} ${libertinus.variable}`}
+    >
+      <body className="font-body antialiased flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
