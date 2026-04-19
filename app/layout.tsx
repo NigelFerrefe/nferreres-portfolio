@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Cinzel_Decorative, Libertinus_Serif } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import { Cinzel_Decorative, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+import Providers from "@/providers/providers";
+import LocaleSync from "@/components/LocaleSync";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
   title: "Next.js and Supabase Starter Kit",
   description: "The fastest way to build apps with Next.js and Supabase",
 };
@@ -20,34 +16,30 @@ const cinzel = Cinzel_Decorative({
   display: "swap",
 });
 
-const libertinus = Libertinus_Serif({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-libertinus",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
-      lang="en"
+      lang="es"
       suppressHydrationWarning
-      className={`${cinzel.variable} ${libertinus.variable}`}
+      className={`${cinzel.variable} ${cormorant.variable}`}
     >
-      <body className="font-body antialiased flex min-h-full flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body className="font-body antialiased flex min-h-dvh flex-col">
+        <Providers>
+          <LocaleSync />
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

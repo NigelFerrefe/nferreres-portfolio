@@ -1,8 +1,10 @@
 export interface Profile {
   id: string;
   full_name: string;
-  job_title: string;
-  bio: string;
+  job_title_es: string;
+  job_title_en: string;
+  bio_es: string;
+  bio_en: string;
   profile_image_url: string;
   github_url: string;
   linkedin_url: string;

@@ -1,8 +1,14 @@
-import { Project } from "@/types/projects";
-import { createClient } from "../supabase/server";
+import "server-only";
 
-export const getProjects = async (): Promise<Project[]> => {
-  const supabase = await createClient();
+import { cacheLife } from "next/cache";
+import { Project } from "@/types/projects";
+import { createPublicClient } from "../supabase/public-server";
+
+export async function getProjects(): Promise<Project[]> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
     .from("projects")
@@ -11,4 +17,4 @@ export const getProjects = async (): Promise<Project[]> => {
 
   if (error) throw error;
   return data;
-};
+}

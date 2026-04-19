@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import AdminDashboard from "@/components/admin/AdminDhasboard";
+import AdminDashboard from "@/components/pages/admin/AdminDhasboard";
 
 async function AdminContent() {
   const supabase = await createClient();
@@ -16,7 +16,7 @@ async function AdminContent() {
 
 export default function AdminPage() {
   return (
-    <Suspense fallback={<div>Cargando admin...</div>}>
+    <Suspense fallback={null}>
       <AdminContent />
     </Suspense>
   );

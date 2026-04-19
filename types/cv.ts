@@ -6,18 +6,22 @@ export interface WorkExperience {
   start_date: string;
   end_date: string | null;
   is_current: boolean;
-  description: string;
-  bullet_points: string[];
+  description_es: string;
+  description_en: string;
+  bullet_points_es: string[];
+  bullet_points_en: string[];
   created_at: string;
 }
 export interface Education {
   id: string;
-  title: string;
+  title_es: string;
+  title_en: string;
   institution: string;
   location: string;
   start_date: string;
   end_date: string | null;
-  description: string;
+  description_es: string;
+  description_en: string;
   created_at: string;
 }
 
@@ -26,7 +30,8 @@ export interface Certification {
   title: string;
   issuer: string;
   issue_date: string | null;
-  description: string;
+  description_es: string;
+  description_en: string;
   created_at: string;
 }
 

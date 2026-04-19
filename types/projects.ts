@@ -2,9 +2,12 @@ export interface Project {
   id: string;
   title: string;
   slug: string;
-  short_description: string;
-  full_description: string;
-  bullet_points: string[];
+  short_description_es: string;
+  full_description_es: string;
+  bullet_points_es: string[];
+  short_description_en: string;
+  full_description_en: string;
+  bullet_points_en: string[];
   main_technologies: string[];
   libraries: string[];
   github_url: string;

@@ -1,14 +1,20 @@
-import { Profile } from "@/types/profle"
-import { createClient } from "../supabase/server"
+import "server-only";
 
-export const getProfile = async ():Promise<Profile> => {
-  const supabase = await createClient()
+import { cacheLife } from "next/cache";
+import { Profile } from "@/types/profile";
+import { createPublicClient } from "../supabase/public-server";
+
+export async function getProfile(): Promise<Profile> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
-    .from('profile')
-    .select('*')
-    .single()
+    .from("profile")
+    .select("*")
+    .single();
 
-  if (error) throw error
-  return data
+  if (error) throw error;
+  return data;
 }

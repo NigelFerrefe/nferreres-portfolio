@@ -1,8 +1,19 @@
-import { createClient } from "../supabase/server";
-import { Certification, Education, SkillWithCategory, WorkExperience } from "@/types/cv";
+import "server-only";
 
-export const getWorkExperience = async (): Promise<WorkExperience[]> => {
-  const supabase = await createClient();
+import { cacheLife } from "next/cache";
+import {
+  Certification,
+  Education,
+  SkillWithCategory,
+  WorkExperience
+} from "@/types/cv";
+import { createPublicClient } from "../supabase/public-server";
+
+export async function getWorkExperience(): Promise<WorkExperience[]> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
     .from("work_experience")
@@ -12,10 +23,13 @@ export const getWorkExperience = async (): Promise<WorkExperience[]> => {
 
   if (error) throw error;
   return data;
-};
+}
 
-export const getEducation = async (): Promise<Education[]> => {
-  const supabase = await createClient();
+export async function getEducation(): Promise<Education[]> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
     .from("education")
@@ -24,10 +38,13 @@ export const getEducation = async (): Promise<Education[]> => {
 
   if (error) throw error;
   return data;
-};
+}
 
-export const getCertification = async (): Promise<Certification[]> => {
-  const supabase = await createClient();
+export async function getCertification(): Promise<Certification[]> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
     .from("certifications")
@@ -36,18 +53,21 @@ export const getCertification = async (): Promise<Certification[]> => {
 
   if (error) throw error;
   return data;
-};
+}
 
-export const getSkills = async (): Promise<SkillWithCategory[]> => {
-  const supabase = await createClient();
+export async function getSkills(): Promise<SkillWithCategory[]> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
 
   const { data, error } = await supabase
     .from("skills")
     .select(`
       *,
       skill_categories (*)
-    `)
+    `);
 
   if (error) throw error;
   return data;
-};
+}
