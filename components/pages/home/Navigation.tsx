@@ -1,22 +1,10 @@
 import NavLink from "@/components/ui/navLink";
+import { linkOptions } from "@/lib/constants";
 
 import { Locale } from "@/types/localeProps";
 
 
-const linkOptions = {
-  es: [
-    { label: "currículum", chapter: "I", href: "/resume" },
-    { label: "proyectos", chapter: "II", href: "/projects" },
-    { label: "contacto", chapter: "III", href: "/contact" },
-    { label: "template", chapter: "IV", href: "/template" },
-  ],
-  en: [
-    { label: "resume", chapter: "I", href: "/resume" },
-    { label: "projects", chapter: "II", href: "/projects" },
-    { label: "contact", chapter: "III", href: "/contact" },
-    { label: "template", chapter: "IV", href: "/template" },
-  ],
-};
+
 
 const Navigation = ({ locale }: { locale: Locale }) => {
   const options = linkOptions[locale];

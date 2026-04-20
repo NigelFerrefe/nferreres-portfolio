@@ -26,7 +26,7 @@ export function LangButtons() {
       segments.unshift(nextLocale);
     }
 
-    router.push("/" + segments.join("/"));
+    router.replace("/" + segments.join("/"));
   };
 
   return (

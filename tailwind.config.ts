@@ -62,6 +62,15 @@ export default {
         body: ["var(--font-cormorant)", "serif"],
         display: ["var(--font-cinzel)", "serif"],
       },
+      keyframes: {
+        breathing: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.6" },
+          "50%": { transform: "scale(1.15)", opacity: "0" },
+        },
+      },
+      animation: {
+        breathing: "breathing 8s ease-out infinite",
+      },
     },
   },
   plugins: [animate],

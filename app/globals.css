@@ -7,10 +7,10 @@
     --background: 40 25% 96%; /* #f5f1ea → fondo principal (papel claro) */
     --foreground: 220 10% 16%; /* #23262a → texto principal */
 
-    --card: 0 0% 100%; /* #ffffff → tarjetas */
+    --card: 40 30% 98%; /* #faf8f4 → tarjetas */
     --card-foreground: 220 10% 16%; /* #23262a */
 
-    --popover: 0 0% 100%; /* #ffffff → modales */
+    --popover: 40 30% 98%; /* #faf8f4 → modales */
     --popover-foreground: 220 10% 16%; /* #23262a */
 
     --primary: 24 70% 45%; /* #c06723 → terracota (marca en light) */

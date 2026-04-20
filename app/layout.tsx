@@ -1,13 +1,7 @@
-import type { Metadata } from "next";
 import { Cinzel_Decorative, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers/providers";
 import LocaleSync from "@/components/LocaleSync";
-
-export const metadata: Metadata = {
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
-};
 
 const cinzel = Cinzel_Decorative({
   subsets: ["latin"],
