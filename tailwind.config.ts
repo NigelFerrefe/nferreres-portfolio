@@ -59,7 +59,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        body: ["var(--font-cormorant)", "serif"],
+        body: ["var(--font-libertinus)", "var(--font-cormorant)", "serif"],
         display: ["var(--font-cinzel)", "serif"],
       },
       keyframes: {

@@ -46,6 +46,7 @@ export interface Skill {
   id: string;
   name: string;
   category_id: string;
+  icon_slug: string;
   created_at: string;
 }
 

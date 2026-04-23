@@ -3,11 +3,11 @@ import { LangButtons } from "@/components/LangButton";
 
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-5 px-6 py-4 lg:hidden">
+    <footer className="flex items-center justify-center gap-5 px-6 py-4 lg:hidden">
       <ThemeSwitcher />
       <LangButtons />
     </footer>
   );
-}
+};
 
 export default Footer;

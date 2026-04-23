@@ -55,7 +55,7 @@ export default function DesktopNavbar({ profile }: { profile: Profile }) {
         </div>
 
         <div className="flex items-center gap-4 shrink-0">
-          <div className="flex flex-row">
+          <div className=" flex-row hidden lg:flex ">
             <ThemeSwitcher />
             <LangButtons />
           </div>

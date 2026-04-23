@@ -1,4 +1,4 @@
-import { Cinzel_Decorative, Cormorant_Garamond } from "next/font/google";
+import { Cinzel_Decorative, Cormorant_Garamond, Libertinus_Serif } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers/providers";
 import LocaleSync from "@/components/LocaleSync";
@@ -7,6 +7,13 @@ const cinzel = Cinzel_Decorative({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
   variable: "--font-cinzel",
+  display: "swap",
+});
+
+const libertinus = Libertinus_Serif({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-libertinus",
   display: "swap",
 });
 
@@ -27,7 +34,7 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${cinzel.variable} ${cormorant.variable}`}
+      className={`${cinzel.variable} ${libertinus.variable} ${cormorant.variable}`}
     >
       <body className="font-body antialiased flex min-h-dvh flex-col">
         <Providers>

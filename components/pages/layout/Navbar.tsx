@@ -7,11 +7,11 @@ const Navbar = async () => {
   if (!profile) return null;
   return (
 <nav>
-  <div className="lg:hidden">
+  <div className="md:hidden">
     <MobileNavbar profile={profile} />
   </div>
 
-  <div className="hidden lg:block">
+  <div className="hidden md:block">
     <DesktopNavbar profile={profile} />
   </div>
 </nav>

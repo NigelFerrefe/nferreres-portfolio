@@ -50,7 +50,7 @@ export default function MobileNavbar({ profile }: { profile: Profile }) {
         <button
           onClick={() => setIsOpen(true)}
           className="flex h-10 w-10 items-center justify-center rounded-xl
-                     bg-secondary hover:bg-muted border border-border
+                     bg-muted hover:bg-muted border border-border
                      transition-colors duration-200 outline-none"
           aria-label={locale === "es" ? "Abrir menú" : "Open menu"}
         >
