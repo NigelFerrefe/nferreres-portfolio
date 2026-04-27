@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Cinzel_Decorative,
   Cormorant_Garamond,
@@ -29,6 +30,23 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   display: "swap",
 });
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  authors: [{ name: "Nigel Ferreres" }],
+  creator: "Nigel Ferreres",
+  publisher: "Nigel Ferreres",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+};
 
 export default function RootLayout({
   children,
