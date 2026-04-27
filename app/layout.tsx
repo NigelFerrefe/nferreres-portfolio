@@ -1,7 +1,12 @@
-import { Cinzel_Decorative, Cormorant_Garamond, Libertinus_Serif } from "next/font/google";
+import {
+  Cinzel_Decorative,
+  Cormorant_Garamond,
+  Libertinus_Serif,
+} from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers/providers";
 import LocaleSync from "@/components/LocaleSync";
+import { Suspense } from "react";
 
 const cinzel = Cinzel_Decorative({
   subsets: ["latin"],
@@ -38,7 +43,9 @@ export default function RootLayout({
     >
       <body className="font-body antialiased flex min-h-dvh flex-col">
         <Providers>
-          <LocaleSync />
+          <Suspense fallback={null}>
+            <LocaleSync />
+          </Suspense>
           {children}
         </Providers>
       </body>

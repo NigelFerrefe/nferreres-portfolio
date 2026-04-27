@@ -18,3 +18,26 @@ export async function getProjects(): Promise<Project[]> {
   if (error) throw error;
   return data;
 }
+
+
+export async function getProjectBySlug(
+  slug: string
+): Promise<Project | null> {
+  "use cache";
+  cacheLife("days");
+
+  const supabase = createPublicClient();
+
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") return null; // not found
+    throw error;
+  }
+
+  return data;
+}

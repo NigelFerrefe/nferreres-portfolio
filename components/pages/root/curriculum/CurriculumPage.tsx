@@ -12,6 +12,7 @@ import CertificationSection from "./Certification";
 import { SkillWithCategory } from "@/types/cv";
 import SkillsSection from "./Skills";
 import TimelineDouble from "./TimeLineDouble";
+import ScrollToTopButton from "@/components/ScrollToTop";
 
 
 const CurriculumPage = async ({ locale }: { locale: Locale }) => {
@@ -69,7 +70,7 @@ const CurriculumPage = async ({ locale }: { locale: Locale }) => {
         isEs={isEs}
       />
       <SkillsSection skillsByCategory={skillsByCategory} isEs={isEs} />
-      
+      <ScrollToTopButton />
     </div>
   );
 };

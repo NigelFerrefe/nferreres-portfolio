@@ -1,7 +1,7 @@
 "use client";
 
 import { WorkExperience, Education, Certification } from "@/types/cv";
-import { formatDateTime } from "@/utils";
+import { formatDateTime } from "@/lib/utils/index";
 import {
   Disclosure,
   DisclosureButton,

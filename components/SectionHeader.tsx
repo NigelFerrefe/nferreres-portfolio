@@ -1,4 +1,4 @@
-const SectionHeader = ({ chapter, label }: { chapter: string; label: string }) => {
+const SectionHeader = ({ chapter, label }: { chapter?: string; label: string }) => {
   return (
     <h1 className="flex flex-col items-center text-primary font-display leading-none gap-4">
       <span className="text-xl">{chapter}</span>

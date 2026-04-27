@@ -16,7 +16,7 @@ const normalizeTech = (tech: string) =>
 
 const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
   return (
-    <section className="w-full md:w-3/4 py-10 space-y-10">
+    <section className="w-full md:w-3/4 lg:max-w-5xl py-10 space-y-10">
       {projects.map((project) => (
         <div key={project.id} className="mb-10">
           <Card
@@ -38,15 +38,15 @@ const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
               ))}
             </div>
             <CardHeader className="p-4 pb-0">
-<div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-background/60">
-  <Image
-    src={project.cover_image_url}
-    alt={project.title}
-    width={1000}
-    height={600}
-    className="h-full w-full object-cover object-top"
-  />
-</div>
+              <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-background/60">
+                <Image
+                  src={project.cover_image_url}
+                  alt={project.title}
+                  width={1000}
+                  height={600}
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
             </CardHeader>
             <CardContent className="space-y-4 p-5 pt-4">
               <div className="max-w-[85%] md:max-w-[80%]">

@@ -11,6 +11,7 @@ export interface Project {
   main_technologies: string[];
   libraries: string[];
   github_url: string;
+  githubback_url: string;
   deploy_url: string;
   cover_image_url: string;
   end_date: string | null;
