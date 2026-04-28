@@ -29,13 +29,11 @@ const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
               shadow-sm
             "
           >
-            {/* Glow decorativo */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.14),transparent_45%)]"
             />
 
-            {/* Iconos de tecnologías flotantes */}
             <div
               aria-hidden="true"
               className="absolute bottom-12 right-4 translate-y-[-4.5rem] z-20 flex w-12 flex-col items-center gap-7 rounded-full border border-accent/60 bg-card px-2 py-5 shadow-md md:translate-y-[-2rem]"
@@ -72,6 +70,7 @@ const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
                 <h3 className="text-2xl uppercase text-primary">
                   {project.title}
                 </h3>
+
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {isEs
                     ? project.short_description_es
@@ -80,9 +79,10 @@ const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
               </div>
 
               <div className="mt-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                {/* Tags de tecnologías */}
                 <ul
-                  aria-label={isEs ? "Tecnologías utilizadas" : "Technologies used"}
+                  aria-label={
+                    isEs ? "Tecnologías utilizadas" : "Technologies used"
+                  }
                   className="flex flex-wrap gap-2 list-none p-0 m-0"
                 >
                   {project.main_technologies.map((tech) => (
@@ -95,25 +95,23 @@ const ProjectCard = ({ projects, isEs }: ProjectCardProps) => {
                   ))}
                 </ul>
 
-                <Link
-                  href={`/projects/${project.slug}`}
-                  aria-label={
-                    isEs
-                      ? `Ver proyecto ${project.title}`
-                      : `View project ${project.title}`
-                  }
+                <Button
+                  asChild
+                  variant="link"
+                  size="sm"
+                  className="px-0 md:px-2 md:text-base"
                 >
-                  <Button
-                    variant="link"
-                    size="sm"
-                    className="px-0 md:px-2 md:text-base"
-                    tabIndex={-1}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    aria-label={
+                      isEs
+                        ? `Ver proyecto ${project.title}`
+                        : `View project ${project.title}`
+                    }
                   >
-                    <span aria-hidden="true">
-                      {isEs ? "Ver Proyecto" : "View Project"}
-                    </span>
-                  </Button>
-                </Link>
+                    {isEs ? "Ver Proyecto" : "View Project"}
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>
