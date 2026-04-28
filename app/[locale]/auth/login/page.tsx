@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
 import { createClient } from "@/lib/supabase/server";
@@ -17,9 +18,7 @@ interface PageProps {
   }>;
 }
 
-export default async function Page({ params }: PageProps) {
-  const { locale } = await params;
-
+async function LoginContent({ locale }: { locale: Locale }) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
 
@@ -33,5 +32,15 @@ export default async function Page({ params }: PageProps) {
         <LoginForm />
       </div>
     </div>
+  );
+}
+
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params;
+
+  return (
+    <Suspense fallback={null}>
+      <LoginContent locale={locale} />
+    </Suspense>
   );
 }
