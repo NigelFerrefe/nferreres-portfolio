@@ -14,7 +14,6 @@ import SkillsSection from "./Skills";
 import TimelineDouble from "./TimeLineDouble";
 import ScrollToTopButton from "@/components/ScrollToTop";
 
-
 const CurriculumPage = async ({ locale }: { locale: Locale }) => {
   const workExperience = await getWorkExperience();
   const education = await getEducation();
@@ -47,7 +46,10 @@ const CurriculumPage = async ({ locale }: { locale: Locale }) => {
   return (
     <div className="flex flex-col items-center pt-4 px-4 md:px-6">
       <SectionHeader chapter="I" label={isEs ? "CURRICULUM" : "RESUME"} />
-      <nav className="my-8 flex justify-center w-full gap-2 md:hidden ">
+      <nav
+        className="my-8 flex justify-center w-full gap-2 md:hidden"
+        aria-label={isEs ? "Secciones del curriculum" : "Resume sections"}
+      >
         {anchors.map((anchor) => (
           <a
             key={anchor.href}
@@ -70,7 +72,7 @@ const CurriculumPage = async ({ locale }: { locale: Locale }) => {
         isEs={isEs}
       />
       <SkillsSection skillsByCategory={skillsByCategory} isEs={isEs} />
-      <ScrollToTopButton />
+      <ScrollToTopButton isEs={isEs} />
     </div>
   );
 };

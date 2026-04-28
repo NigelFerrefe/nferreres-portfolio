@@ -3,14 +3,11 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
 
-export default function ScrollToTopButton() {
+export default function ScrollToTopButton({ isEs }: { isEs: boolean }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > 500);
-    };
-
+    const onScroll = () => setVisible(window.scrollY > 500);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -20,10 +17,8 @@ export default function ScrollToTopButton() {
   return (
     <button
       type="button"
-      onClick={() =>
-        window.scrollTo({ top: 0, behavior: "smooth" })
-      }
-      aria-label="Scroll to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label={isEs ? "Volver al inicio de la página" : "Back to top"}
       className="
         fixed bottom-12 right-6 z-50
         flex h-11 w-11 items-center justify-center
@@ -34,7 +29,7 @@ export default function ScrollToTopButton() {
         md:hidden
       "
     >
-      <ArrowUp className="h-5 w-5" />
+      <ArrowUp className="h-5 w-5" aria-hidden="true" />
     </button>
   );
 }

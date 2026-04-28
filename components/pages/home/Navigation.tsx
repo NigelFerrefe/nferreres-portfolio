@@ -1,16 +1,12 @@
 import NavLink from "@/components/ui/navLink";
 import { linkOptions } from "@/lib/constants";
-
 import { Locale } from "@/types/localeProps";
-
-
-
 
 const Navigation = ({ locale }: { locale: Locale }) => {
   const options = linkOptions[locale];
 
   return (
-    <nav className="flex flex-col items-center gap-8">
+    <nav aria-label="Navegación principal" className="flex flex-col items-center gap-8">
       {options.map((option) => {
         return (
           <NavLink
@@ -21,7 +17,7 @@ const Navigation = ({ locale }: { locale: Locale }) => {
           >
             <span className="flex items-center justify-between">
               <span>{option.chapter}</span>
-              <span className="mx-3">·</span>
+              <span aria-hidden="true" className="mx-3">·</span>
               <span>{option.label}</span>
             </span>
           </NavLink>

@@ -12,52 +12,71 @@ const Footer = async () => {
       {/* Desktop */}
       <div className="hidden md:grid md:grid-cols-3 md:items-center">
         {/* LEFT vacío */}
-        <div />
+        <div aria-hidden="true" />
 
         {/* CENTER iconos */}
-        <div className="flex items-center justify-center gap-5 lg:gap-10">
+        {/* CENTER iconos */}
+        <ul
+          aria-label="Redes sociales"
+          className="flex items-center justify-center gap-5 lg:gap-10 list-none m-0 p-0"
+        >
           {profile?.github_url && (
-            <Link
-              href={profile.github_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
-              aria-label="GitHub"
-            >
-              <FaGithub className="h-4 w-4 md:h-6 md:w-6" />
-            </Link>
+            <li>
+              <Link
+                href={profile.github_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
+                aria-label="GitHub (abre en nueva pestaña)"
+              >
+                <FaGithub
+                  className="h-4 w-4 md:h-6 md:w-6"
+                  aria-hidden="true"
+                />
+              </Link>
+            </li>
           )}
 
           {profile?.linkedin_url && (
-            <Link
-              href={profile.linkedin_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin className="h-4 w-4 md:h-6 md:w-6" />
-            </Link>
+            <li>
+              <Link
+                href={profile.linkedin_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
+                aria-label="LinkedIn (abre en nueva pestaña)"
+              >
+                <FaLinkedin
+                  className="h-4 w-4 md:h-6 md:w-6"
+                  aria-hidden="true"
+                />
+              </Link>
+            </li>
           )}
-        </div>
+        </ul>
 
-        {/* RIGHT texto */}
+        {/* RIGHT copyright */}
         <p className="text-right text-xs text-muted-foreground">
-          © 2026 Nigel Ferreres · All rights reserved
+          <span aria-hidden="true">©</span>
+          <span className="sr-only">Copyright</span> 2026 Nigel Ferreres · All
+          rights reserved
         </p>
       </div>
 
       {/* Mobile */}
-      <div className="flex items-center justify-center gap-5 md:hidden">
+      <div
+        className="flex items-center justify-center gap-5 md:hidden"
+        aria-label="Redes sociales y preferencias"
+      >
         {profile?.github_url && (
           <Link
             href={profile.github_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
-            aria-label="GitHub"
+            aria-label="GitHub (abre en nueva pestaña)"
           >
-            <FaGithub className="h-4 w-4" />
+            <FaGithub className="h-4 w-4" aria-hidden="true" />
           </Link>
         )}
 
@@ -67,15 +86,15 @@ const Footer = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150"
-            aria-label="LinkedIn"
+            aria-label="LinkedIn (abre en nueva pestaña)"
           >
-            <FaLinkedin className="h-4 w-4" />
+            <FaLinkedin className="h-4 w-4" aria-hidden="true" />
           </Link>
         )}
 
-        {profile && <span className="h-4 w-px bg-border" />}
+        {profile && <span aria-hidden="true" className="h-4 w-px bg-border" />}
         <ThemeSwitcher />
-        {profile && <span className="h-4 w-px bg-border" />}
+        {profile && <span aria-hidden="true" className="h-4 w-px bg-border" />}
         <LangButtons />
       </div>
     </footer>

@@ -41,6 +41,7 @@ const sizeStyles =
     <Link
       href={fullHref}
       onClick={onClick}
+      aria-current={isActive ? "page" : undefined}
       className={`${sizeStyles} transition-colors duration-200
         ${isActive ? "text-primary" : "text-primary hover:text-foreground"}
         ${className}`}

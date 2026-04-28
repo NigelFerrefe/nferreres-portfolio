@@ -24,11 +24,17 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <Button variant="ghost" size="sm" onClick={handleThemeChange}>
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={handleThemeChange}
+      aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      aria-pressed={isDark}
+    >
       {isDark ? (
-        <Sun size={16} className="text-ring" />
+        <Sun size={16} className="text-ring" aria-hidden="true" />
       ) : (
-        <Moon size={16} className="text-ring" />
+        <Moon size={16} className="text-ring" aria-hidden="true" />
       )}
     </Button>
   );

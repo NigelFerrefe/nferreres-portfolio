@@ -48,48 +48,56 @@ export default function TimelineDouble({
     <div className="hidden md:block w-full py-10">
       <div className="mx-auto w-full max-w-7xl">
         {/* Headers */}
-        <div className="grid grid-cols-[1fr_40px_1fr] mb-8">
-          <h2 className="text-base font-semibold uppercase tracking-widest text-muted-foreground text-right pr-6">
+        <div className="grid grid-cols-[1fr_40px_1fr] mb-8" aria-hidden="true">
+          <p className="text-base font-semibold uppercase tracking-widest text-muted-foreground text-right pr-6">
             {isEs ? "Experiencia" : "Experience"}
-          </h2>
+          </p>
           <div />
-          <h2 className="text-base font-semibold uppercase tracking-widest text-muted-foreground pl-6">
+          <p className="text-base font-semibold uppercase tracking-widest text-muted-foreground pl-6">
             {isEs ? "Formación" : "Education & Certifications"}
-          </h2>
+          </p>
         </div>
 
-        <div className="relative flex flex-col">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2" />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Línea central decorativa */}
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2"
+          />
 
-          {events.map((event, i) => {
-            const isWork = event.type === "work";
-
-            return (
-              <div
-                key={i}
-                className="grid grid-cols-[1fr_40px_1fr] items-start mb-10"
-              >
-                {/*  Work */}
-                <div className={isWork ? "text-right pr-6" : ""}>
-                  {isWork && <WorkItem work={event.data} isEs={isEs} />}
-                </div>
-
-                <div className="flex justify-center pt-1">
-                  <div className="h-3 w-3 rounded-full  ring-background shrink-0 z-10 bg-primary" />
-                </div>
-
-                {/*  Education / Certification */}
-                <div className={!isWork ? "pl-6" : ""}>
-                  {event.type === "education" && (
-                    <EducationItem edu={event.data} isEs={isEs} />
-                  )}
-                  {event.type === "certification" && (
-                    <CertificationItem cert={event.data} isEs={isEs} />
-                  )}
-                </div>
-              </div>
-            );
-          })}
+          <ul
+            aria-label={isEs ? "Línea de tiempo" : "Timeline"}
+            className="flex flex-col list-none p-0 m-0"
+          >
+            {events.map((event, i) => {
+              const isWork = event.type === "work";
+              return (
+                <li
+                  key={i}
+                  className="grid grid-cols-[1fr_40px_1fr] items-start mb-10"
+                >
+                  <div className={isWork ? "text-right pr-6" : ""}>
+                    {isWork && <WorkItem work={event.data} isEs={isEs} />}
+                  </div>
+                  <div className="flex justify-center pt-1">
+                    <div
+                      aria-hidden="true"
+                      className="h-3 w-3 rounded-full ring-background shrink-0 z-10 bg-primary"
+                    />
+                  </div>
+                  <div className={!isWork ? "pl-6" : ""}>
+                    {event.type === "education" && (
+                      <EducationItem edu={event.data} isEs={isEs} />
+                    )}
+                    {event.type === "certification" && (
+                      <CertificationItem cert={event.data} isEs={isEs} />
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </div>
@@ -100,17 +108,24 @@ function WorkItem({ work, isEs }: { work: WorkExperience; isEs: boolean }) {
   return (
     <>
       <p className="text-xs font-medium text-muted-foreground mb-1">
-        {formatDateTime(work.start_date).dateMonthYear}
+        <time dateTime={work.start_date}>
+          {formatDateTime(work.start_date).dateMonthYear}
+        </time>
         {" — "}
-        {work.is_current
-          ? isEs
-            ? "Actualidad"
-            : "Present"
-          : formatDateTime(work.end_date!).dateMonthYear}
+        {work.is_current ? (
+          <span>{isEs ? "Actualidad" : "Present"}</span>
+        ) : (
+          <time dateTime={work.end_date!}>
+            {formatDateTime(work.end_date!).dateMonthYear}
+          </time>
+        )}
       </p>
       <h3 className="text-base font-semibold text-foreground">{work.title}</h3>
       <p className="text-sm text-muted-foreground mb-2">
-        {work.company} · {work.location}
+        {work.company}
+        <span aria-hidden="true"> · </span>
+        <span className="sr-only">, </span>
+        {work.location}
       </p>
       <p className="text-sm text-muted-foreground">
         {isEs ? work.description_es : work.description_en}
@@ -134,6 +149,7 @@ function WorkItem({ work, isEs }: { work: WorkExperience; isEs: boolean }) {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth={2.5}
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -144,21 +160,29 @@ function WorkItem({ work, isEs }: { work: WorkExperience; isEs: boolean }) {
               </DisclosureButton>
               <DisclosurePanel
                 transition
-                className="mt-2 space-y-1 overflow-hidden
+                className="mt-2 overflow-hidden
                            data-[closed]:opacity-0 data-[closed]:-translate-y-1
                            transition-all duration-200 ease-out"
               >
-                {(isEs ? work.bullet_points_es : work.bullet_points_en).map(
-                  (point, i) => (
-                    <div
-                      key={i}
-                      className="text-sm text-muted-foreground flex gap-2 justify-end"
-                    >
-                      {point}
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
-                    </div>
-                  ),
-                )}
+                <ul
+                  aria-label={isEs ? "Detalles del puesto" : "Role details"}
+                  className="space-y-1"
+                >
+                  {(isEs ? work.bullet_points_es : work.bullet_points_en).map(
+                    (point, i) => (
+                      <li
+                        key={i}
+                        className="text-sm text-muted-foreground flex gap-2 justify-end"
+                      >
+                        {point}
+                        <span
+                          aria-hidden="true"
+                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60"
+                        />
+                      </li>
+                    ),
+                  )}
+                </ul>
               </DisclosurePanel>
             </>
           )}
@@ -172,14 +196,27 @@ function EducationItem({ edu, isEs }: { edu: Education; isEs: boolean }) {
   return (
     <>
       <p className="text-xs font-medium text-muted-foreground mb-1">
-        {formatDateTime(edu.start_date).dateMonthYear}
-        {edu.end_date ? ` — ${formatDateTime(edu.end_date).dateMonthYear}` : ""}
+        <time dateTime={edu.start_date}>
+          {formatDateTime(edu.start_date).dateMonthYear}
+        </time>
+        {edu.end_date && (
+          <>
+            {" "}
+            —{" "}
+            <time dateTime={edu.end_date}>
+              {formatDateTime(edu.end_date).dateMonthYear}
+            </time>
+          </>
+        )}
       </p>
       <h3 className="text-base font-semibold text-foreground">
         {isEs ? edu.title_es : edu.title_en}
       </h3>
       <p className="text-sm text-muted-foreground mb-2">
-        {edu.institution} · {edu.location}
+        {edu.institution}
+        <span aria-hidden="true"> · </span>
+        <span className="sr-only">, </span>
+        {edu.location}
       </p>
       <p className="text-sm text-muted-foreground">
         {isEs ? edu.description_es : edu.description_en}
@@ -199,7 +236,9 @@ function CertificationItem({
     <>
       {cert.issue_date && (
         <p className="text-xs font-medium text-muted-foreground mb-1">
-          {formatDateTime(cert.issue_date).dateMonthYear}
+          <time dateTime={cert.issue_date}>
+            {formatDateTime(cert.issue_date).dateMonthYear}
+          </time>
         </p>
       )}
       <h3 className="text-base font-semibold text-foreground">{cert.title}</h3>

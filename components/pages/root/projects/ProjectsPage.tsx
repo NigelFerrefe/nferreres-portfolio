@@ -11,7 +11,7 @@ const ProjectsPage = async ({ locale }: { locale: Locale }) => {
     <div className="flex flex-col items-center pt-4 px-4 md:px-6">
       <SectionHeader chapter="II" label={isEs ? "PROYECTOS" : "PROJECTS"} />
       <ProjectCard projects={projects} isEs={isEs} />
-      <ScrollToTopButton />
+      <ScrollToTopButton isEs={isEs} />
     </div>
   );
 };

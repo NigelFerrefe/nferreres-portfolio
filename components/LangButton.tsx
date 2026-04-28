@@ -14,8 +14,6 @@ export function LangButtons() {
 
   const changeLocale = (nextLocale: Locale) => {
     setLocale(nextLocale);
-
-    // guardar preferencia (para proxy)
     document.cookie = `lang=${nextLocale}; path=/; max-age=31536000`;
 
     const segments = pathname.split("/").filter(Boolean);
@@ -30,9 +28,15 @@ export function LangButtons() {
   };
 
   return (
-    <div className="flex items-center gap-1 text-sm font-medium">
+    <div
+      role="group"
+      aria-label="Selección de idioma"
+      className="flex items-center gap-1 text-sm font-medium"
+    >
       <button
         onClick={() => changeLocale("es")}
+        aria-label="Cambiar idioma a español"
+        aria-pressed={locale === "es"}
         className={
           locale === "es"
             ? "text-ring"
@@ -41,9 +45,11 @@ export function LangButtons() {
       >
         ES
       </button>
-      <span className="text-neutral-400">|</span>
+      <span aria-hidden="true" className="text-neutral-400">|</span>
       <button
         onClick={() => changeLocale("en")}
+        aria-label="Switch language to English"
+        aria-pressed={locale === "en"}
         className={
           locale === "en"
             ? "text-ring"
