@@ -53,3 +53,13 @@ export interface Skill {
 export interface SkillWithCategory extends Skill {
   skill_categories: SkillCategory;
 }
+
+
+export type CreateWorkExperienceInput = Omit<
+  WorkExperience,
+  "id" | "created_at"
+>;
+
+export type UpdateWorkExperienceInput = Partial<CreateWorkExperienceInput> & {
+  id: string;
+};

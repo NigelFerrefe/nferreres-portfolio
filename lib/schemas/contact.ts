@@ -13,3 +13,5 @@ export const getContactSchema = (isEs: boolean) =>
   });
 
 export type ContactFormData = z.infer<ReturnType<typeof getContactSchema>>;
+
+

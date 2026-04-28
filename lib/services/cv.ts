@@ -1,6 +1,6 @@
 import "server-only";
 
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag  } from "next/cache";
 import {
   Certification,
   Education,
@@ -11,6 +11,7 @@ import { createPublicClient } from "../supabase/public-server";
 
 export async function getWorkExperience(): Promise<WorkExperience[]> {
   "use cache";
+  cacheTag("work-experience");
   cacheLife("days");
 
   const supabase = createPublicClient();
