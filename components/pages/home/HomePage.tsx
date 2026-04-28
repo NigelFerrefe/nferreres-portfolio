@@ -10,8 +10,8 @@ const HomePage = async ({ locale }: { locale: Locale }) => {
   const profile = await getProfile();
   if (!profile) return null;
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center px-4">
-      <div className="flex flex-col items-center gap-8 w-full max-w-sm md:max-w-md">
+    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+      <div className="flex w-full max-w-sm flex-col items-center gap-6 md:max-w-md md:gap-8">
         <Header profile={profile} locale={locale} />
         <div className="border-t w-full border-border" />
         <Navigation locale={locale} />
@@ -20,7 +20,11 @@ const HomePage = async ({ locale }: { locale: Locale }) => {
             <ThemeSwitcher />
             <LangButtons />
           </div>
-          <DownloadResumeButton profile={profile} showIcon={true} variant={"outline"} />
+          <DownloadResumeButton
+            profile={profile}
+            showIcon={true}
+            variant={"outline"}
+          />
         </div>
       </div>
     </main>
