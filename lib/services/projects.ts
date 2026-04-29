@@ -1,11 +1,12 @@
 import "server-only";
 
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 import { Project } from "@/types/projects";
 import { createPublicClient } from "../supabase/public-server";
 
 export async function getProjects(): Promise<Project[]> {
   "use cache";
+  cacheTag("projects");
   cacheLife("days");
 
   const supabase = createPublicClient();
@@ -19,11 +20,9 @@ export async function getProjects(): Promise<Project[]> {
   return data;
 }
 
-
-export async function getProjectBySlug(
-  slug: string
-): Promise<Project | null> {
+export async function getProjectBySlug(slug: string): Promise<Project | null> {
   "use cache";
+  cacheTag("projects");
   cacheLife("days");
 
   const supabase = createPublicClient();

@@ -4,6 +4,9 @@ import { useMemo, useState } from "react";
 import { LogoutButton } from "../../logout-button";
 import { Card, CardContent } from "@/components/ui/card";
 import WorkContentSection from "./WorkContent";
+import CertificationSection from "./CertificationSection";
+import SkillSection from "./SkillSection";
+import ProjectContentSection from "./ProjectSection";
 
 const ADMIN_SECTIONS = [
   { key: "experience", label: "Experiencia Laboral" },
@@ -86,12 +89,12 @@ const AdminDashboard = () => {
             )}
 
             {activeSection === "certifications" && (
-              <div>Formulario de certificaciones</div>
+              <CertificationSection />
             )}
 
-            {activeSection === "skills" && <div>Formulario de habilidades</div>}
+            {activeSection === "skills" && <SkillSection />}
 
-            {activeSection === "projects" && <div>Formulario de proyectos</div>}
+            {activeSection === "projects" && <ProjectContentSection />}
           </CardContent>
         </div>
       </Card>

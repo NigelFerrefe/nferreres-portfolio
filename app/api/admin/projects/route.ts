@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { getWorkExperience } from "@/lib/services/cv";
+import { CreateProjectInput, UpdateProjectInput } from "@/types/projects";
 import {
-  CreateWorkExperienceInput,
-  UpdateWorkExperienceInput,
-} from "@/types/cv";
+  createProject,
+  deleteProject,
+  updateProject,
+} from "@/lib/services/admin/projects";
+import { getProjects } from "@/lib/services/projects";
 
 async function requireUser() {
   const supabase = await createClient();
@@ -12,21 +14,22 @@ async function requireUser() {
   const { data } = await supabase.auth.getUser();
 
   if (!data.user) {
-    return { supabase, error: "Unauthorized" };
+    return false;
   }
 
-  return { supabase, error: null };
+  return true;
 }
 
 export async function GET() {
-  const { error } = await requireUser();
+  const isAuthorized = await requireUser();
 
-  if (error) {
-    return NextResponse.json({ error }, { status: 401 });
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const workExperience = await getWorkExperience();
+    const workExperience = await getProjects();
+
     return NextResponse.json(workExperience);
   } catch (error) {
     console.log(error);
@@ -39,22 +42,16 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { supabase, error: authError } = await requireUser();
+  const isAuthorized = await requireUser();
 
-  if (authError) {
-    return NextResponse.json({ error: authError }, { status: 401 });
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = (await req.json()) as CreateWorkExperienceInput;
+    const body = (await req.json()) as CreateProjectInput;
 
-    const { data, error } = await supabase
-      .from("work_experience")
-      .insert(body)
-      .select("*")
-      .single();
-
-    if (error) throw error;
+    const data = await createProject(body);
 
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
@@ -68,32 +65,23 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-  const { supabase, error: authError } = await requireUser();
+  const isAuthorized = await requireUser();
 
-  if (authError) {
-    return NextResponse.json({ error: authError }, { status: 401 });
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = (await req.json()) as UpdateWorkExperienceInput;
+    const body = (await req.json()) as UpdateProjectInput;
 
-    const { id, ...payload } = body;
-
-    if (!id) {
+    if (!body.id) {
       return NextResponse.json(
         { error: "Missing work experience id" },
         { status: 400 },
       );
     }
 
-    const { data, error } = await supabase
-      .from("work_experience")
-      .update(payload)
-      .eq("id", id)
-      .select("*")
-      .single();
-
-    if (error) throw error;
+    const data = await updateProject(body);
 
     return NextResponse.json(data);
   } catch (error) {
@@ -107,10 +95,10 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { supabase, error: authError } = await requireUser();
+  const isAuthorized = await requireUser();
 
-  if (authError) {
-    return NextResponse.json({ error: authError }, { status: 401 });
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -123,12 +111,7 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const { error } = await supabase
-      .from("work_experience")
-      .delete()
-      .eq("id", id);
-
-    if (error) throw error;
+    await deleteProject(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

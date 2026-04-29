@@ -54,7 +54,6 @@ export interface SkillWithCategory extends Skill {
   skill_categories: SkillCategory;
 }
 
-
 export type CreateWorkExperienceInput = Omit<
   WorkExperience,
   "id" | "created_at"
@@ -63,3 +62,28 @@ export type CreateWorkExperienceInput = Omit<
 export type UpdateWorkExperienceInput = Partial<CreateWorkExperienceInput> & {
   id: string;
 };
+
+export type CreateEducationInput = Omit<Education, "id" | "created_at">;
+
+export type UpdateEducationInput = Partial<CreateEducationInput> & {
+  id: string;
+};
+
+export type CreateCertificationInput = Omit<Certification, "id" | "created_at">;
+
+export type UpdateCertificationInput = Partial<CreateCertificationInput> & {
+  id: string;
+};
+
+export type CreateSkillCategoryInput = Omit<SkillCategory, "id" | "created_at">;
+
+export type UpdateSkillCategoryInput = Partial<CreateSkillCategoryInput> & {
+  id: string;
+};
+
+export type CreateSkillInput = Omit<Skill, "id" | "created_at">;
+
+export type UpdateSkillInput = Partial<CreateSkillInput> & {
+  id: string;
+};
+

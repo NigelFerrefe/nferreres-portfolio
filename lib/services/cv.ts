@@ -28,6 +28,7 @@ export async function getWorkExperience(): Promise<WorkExperience[]> {
 
 export async function getEducation(): Promise<Education[]> {
   "use cache";
+  cacheTag("education");
   cacheLife("days");
 
   const supabase = createPublicClient();
@@ -43,6 +44,7 @@ export async function getEducation(): Promise<Education[]> {
 
 export async function getCertification(): Promise<Certification[]> {
   "use cache";
+  cacheTag("certifications");
   cacheLife("days");
 
   const supabase = createPublicClient();
@@ -58,6 +60,7 @@ export async function getCertification(): Promise<Certification[]> {
 
 export async function getSkills(): Promise<SkillWithCategory[]> {
   "use cache";
+  cacheTag("skills");
   cacheLife("days");
 
   const supabase = createPublicClient();
