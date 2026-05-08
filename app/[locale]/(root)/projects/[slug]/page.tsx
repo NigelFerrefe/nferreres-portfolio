@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-import { getProjectBySlug } from "@/lib/services/projects";
+import { getProjectBySlug, getProjects } from "@/lib/services/projects";
 import ProjectDetail from "@/components/pages/root/projects/ProjectDetail";
 import ProjectDetailSkeleton from "@/components/pages/root/projects/Skeleton";
 import { Locale } from "@/types/localeProps";
@@ -12,6 +12,18 @@ interface PageProps {
     locale: Locale;
     slug: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  const locales = ["es", "en"];
+
+  return locales.flatMap((locale) =>
+    projects.map((project) => ({
+      locale,
+      slug: project.slug,
+    }))
+  );
 }
 
 export async function generateMetadata({
@@ -26,9 +38,9 @@ export async function generateMetadata({
 
   const title = project.title;
 
-  const description = (
-    isEs ? project.short_description_es : project.short_description_en
-  );
+  const description = isEs
+    ? project.short_description_es
+    : project.short_description_en;
 
   const url = `/${locale}/projects/${slug}`;
 

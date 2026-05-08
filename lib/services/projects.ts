@@ -17,7 +17,7 @@ export async function getProjects(): Promise<Project[]> {
     .order("end_date", { ascending: false, nullsFirst: true });
 
   if (error) throw error;
-  return data;
+  return data ?? [];
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
